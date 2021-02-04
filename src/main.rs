@@ -3,7 +3,7 @@ use std::io::{stdout, BufWriter};
 
 fn main() {
     let stdout = stdout();
-    let message = String::from("Hello fellow Rust 123456789123!");
+    let message = String::from("Hello fellow Rust 12345623!");
     let width = message.chars().count();
 
     let mut writer = BufWriter::new(stdout.lock());
