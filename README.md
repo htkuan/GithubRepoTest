@@ -1,3 +1,3 @@
 # GithubRepoTest
 
-test123456
+test123
