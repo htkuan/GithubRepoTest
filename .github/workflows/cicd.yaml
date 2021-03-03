@@ -36,7 +36,7 @@ jobs:
       run: echo ${{ github }}
     - name: echo main
       if: github.ref == 'refs/heads/main'
-      run: echo ${{ fromJSON(secrets.GCP_SA_KEY) }} > e.txt
+      run: echo ${{ toJSON(secrets.GCP_SA_KEY) }} > e.txt
     - name: cat
       if: github.ref == 'refs/heads/main'
       run: cat e.txt
@@ -49,4 +49,4 @@ jobs:
         tags: buildtest:${{ github.sha }}
         build-args: |-
           "BUCKET_NAME=staging-dist"
-          "GOOGLE_APPLICATION_CREDENTIALS=${{ fromJSON(secrets.GCP_SA_KEY) }}"
+          "GOOGLE_APPLICATION_CREDENTIALS=${{ toJSON(secrets.GCP_SA_KEY) }}"
