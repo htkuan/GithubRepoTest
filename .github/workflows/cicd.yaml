@@ -45,6 +45,6 @@ jobs:
         push: false
         tags: buildtest:${{ github.sha }}
         secrets: |
-          "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GITHUB_TOKEN }}"
+          "gcp_key=${{ secrets.GITHUB_TOKEN }}"
         build-args: |-
           "BUCKET_NAME=staging-dist"
