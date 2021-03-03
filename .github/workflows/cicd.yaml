@@ -42,13 +42,13 @@ jobs:
     - name: echo main
       if: github.ref == 'refs/heads/main'
       env:
-        GK: ${{ toJSON(secrets.GCP_SA_KEY)) }}
+        GK: ${{ toJSON(secrets.GCP_SA_KEY) }}
       run: echo $GK
     - name: Build Container
       uses: docker/build-push-action@v2
       if: github.ref == 'refs/heads/main'
       env:
-        GK: ${{ toJSON(secrets.GCP_SA_KEY)) }}
+        GK: ${{ toJSON(secrets.GCP_SA_KEY) }}
       with:
         context: nginx/
         push: false
