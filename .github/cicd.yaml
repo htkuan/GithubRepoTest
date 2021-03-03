@@ -1,0 +1,39 @@
+name: CICD test
+
+on:
+  pull_request:
+    branches:
+      - main
+      - dev
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  pull_request_job1:
+    name: pull_request job 1
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: echo dev
+      if: github.ref == 'refs/heads/dev'
+      run: echo ${{ github }}
+    - name: echo main
+      if: github.ref == 'refs/heads/main'
+      run: echo ${{ github }}
+  push_job1:
+    name: push job 1
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: echo dev
+      if: github.ref == 'refs/heads/dev'
+      run: echo ${{ github }}
+    - name: echo main
+      if: github.ref == 'refs/heads/main'
+      run: echo ${{ github }}
