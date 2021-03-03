@@ -42,7 +42,7 @@ jobs:
     - name: Build Container
       # uses: docker/build-push-action@v2
       if: github.ref == 'refs/heads/main'
-      run: docker build -t ttttt --build-arg GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GCP_SA_KEY }} -build-arg BUCKET_NAME=staging-dist nginx/
+      run: docker build -t ttttt --build-arg GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GCP_SA_KEY }} --build-arg BUCKET_NAME=staging-dist nginx/
       # with:
       #   context: nginx/
       #   push: false
