@@ -44,7 +44,6 @@ jobs:
         context: nginx/
         push: false
         tags: buildtest:${{ github.sha }}
-        secrets: |-
-          "gcp_key=${{ fromJSON(secrets.GCP_SA_KEY) }}"
         build-args: |-
           "BUCKET_NAME=staging-dist"
+          "GOOGLE_APPLICATION_CREDENTIALS=${{ fromJSON(secrets.GCP_SA_KEY) }}"

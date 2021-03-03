@@ -1,16 +1,14 @@
 FROM google/cloud-sdk:322.0.0-alpine as static-storage
 
 ARG BUCKET_NAME
-ENV GOOGLE_APPLICATION_CREDENTIALS=/secrets/mysecret
+ARG GOOGLE_APPLICATION_CREDENTIALS
 
-# https://docs.docker.com/develop/develop-images/build_enhancements/
-RUN --mount=type=secret,id=gcp_key,dst=${GOOGLE_APPLICATION_CREDENTIALS}
-
-RUN gcloud auth activate-service-account && \
+RUN echo $GOOGLE_APPLICATION_CREDENTIALS > credential.json && \
+    gcloud auth activate-service-account --key-file credential.json && \
     gsutil cp -r gs://$BUCKET_NAME .
 
-# FROM nginx:1.19.6-alpine
+FROM nginx:1.19.6-alpine
 
-# ARG BUCKET_NAME
-# COPY ./templates /etc/nginx/templates
-# COPY --from=static-storage /$BUCKET_NAME /usr/share/nginx/html
+ARG BUCKET_NAME
+COPY ./templates /etc/nginx/templates
+COPY --from=static-storage /$BUCKET_NAME /usr/share/nginx/html
