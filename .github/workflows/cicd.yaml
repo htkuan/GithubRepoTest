@@ -48,5 +48,5 @@ jobs:
         push: false
         tags: buildtest:${{ github.sha }}
         build-args: |-
-          "BUCKET_NAME=staging-dist"
-          "GOOGLE_APPLICATION_CREDENTIALS=${{ toJSON(secrets.GCP_SA_KEY) }}"
+          'BUCKET_NAME=staging-dist'
+          'GOOGLE_APPLICATION_CREDENTIALS=${{ toJSON(secrets.GCP_SA_KEY) }}'
