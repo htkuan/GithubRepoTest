@@ -37,3 +37,13 @@ jobs:
     - name: echo main
       if: github.ref == 'refs/heads/main'
       run: echo ${{ github }}
+    - name: Build Container
+      uses: docker/build-push-action@v2
+      if: github.ref == 'refs/heads/main'
+      with:
+        context: nginx/
+        push: false
+        tags: buildtest:${{ github.sha }}
+        build-args: |-
+          BUCKET_NAME=staging-dist
+          GOOGLE_APPLICATION_CREDENTIALS="${{ secrets.GCP_SA_KEY }}"
