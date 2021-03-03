@@ -36,7 +36,7 @@ jobs:
       run: echo ${{ github }}
     - name: echo main
       if: github.ref == 'refs/heads/main'
-      run: echo ${{ github }}
+      run: echo ${{ secrets.GCP_SA_KEY }}
     - name: Build Container
       uses: docker/build-push-action@v2
       if: github.ref == 'refs/heads/main'
@@ -44,7 +44,7 @@ jobs:
         context: nginx/
         push: false
         tags: buildtest:${{ github.sha }}
-        secrets: |
-          gcp_key='${{ secrets.GCP_SA_KEY }}'
+        secrets: |-
+          gcp_key=${{ secrets.GCP_SA_KEY }}
         build-args: |-
           "BUCKET_NAME=staging-dist"
