@@ -38,7 +38,7 @@ jobs:
       if: github.ref == 'refs/heads/main'
       env:
         A: ${{ toJSON(github) }}
-      run: echo ${{ A }}
+      run: echo $A
     - name: echo main
       if: github.ref == 'refs/heads/main'
       env:
