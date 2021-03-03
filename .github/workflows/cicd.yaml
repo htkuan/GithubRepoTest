@@ -36,24 +36,23 @@ jobs:
       run: echo ${{ github }}
     - name: echo main
       if: github.ref == 'refs/heads/main'
-      run: echo ${{ toJSON(secrets.GCP_SA_KEY) }} > e.txt
-    - name: Setup Cloud SDK
+      env:
+        A: ${{ toJSON(github) }}
+      run: echo ${{ A }}
+    - name: echo main
       if: github.ref == 'refs/heads/main'
-      uses: google-github-actions/setup-gcloud@v0.2.0
-      with:
-        project_id: liff-spaces
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
-        export_default_credentials: true  # Set to true to authenticate the Cloud Run action
-    - name: Authorize Docker push
-      if: github.ref == 'refs/heads/main'
-      run: gcloud auth configure-docker
+      env:
+        GK: ${{ toJSON(secrets.GCP_SA_KEY)) }}
+      run: echo $GK
     - name: Build Container
       uses: docker/build-push-action@v2
       if: github.ref == 'refs/heads/main'
+      env:
+        GK: ${{ toJSON(secrets.GCP_SA_KEY)) }}
       with:
         context: nginx/
         push: false
         tags: buildtest:${{ github.sha }}
         build-args: |-
           'BUCKET_NAME=staging-dist'
-          'GOOGLE_APPLICATION_CREDENTIALS=${{ toJSON(secrets.GCP_SA_KEY) }}'
+          'GOOGLE_APPLICATION_CREDENTIALS=$GK'
